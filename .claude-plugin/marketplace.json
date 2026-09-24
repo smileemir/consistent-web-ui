@@ -10,7 +10,7 @@
       "name": "consistent-web-ui",
       "source": "./",
       "description": "Make AI-built websites and web apps look like one consistent, professional product: one theme source, shared components, honest content, accessible layouts and balanced motion.",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "author": {
         "name": "smileemir"
       },
