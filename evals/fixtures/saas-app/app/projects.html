@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Tidewell</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <p class="app-header__brand">Tidewell</p>
+    <nav class="app-nav" aria-label="Main">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <button type="button" class="btn" id="theme-toggle" aria-pressed="false">Dark theme</button>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1>Projects</h1>
+        <p>7 active, 2 archived</p>
+      </div>
+      <a class="btn btn--primary" href="#new-project">New project</a>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Project</th><th scope="col">Client</th><th scope="col">Status</th><th scope="col" class="num">Hours this month</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Harbor app redesign</td><td>Harbor Co.</td><td><span class="badge badge--active">Active</span></td><td class="num">212.0</td></tr>
+          <tr><td>Quarterly report</td><td>Internal</td><td><span class="badge badge--active">Active</span></td><td class="num">38.5</td></tr>
+          <tr><td>Brand refresh</td><td>Lumen Foods</td><td><span class="badge">Archived</span></td><td class="num">0.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/app.js"></script>
+</body>
+</html>

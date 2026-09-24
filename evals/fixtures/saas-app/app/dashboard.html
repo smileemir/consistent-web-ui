@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Tidewell</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <p class="app-header__brand">Tidewell</p>
+    <nav class="app-nav" aria-label="Main">
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <button type="button" class="btn" id="theme-toggle" aria-pressed="false">Dark theme</button>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Northwind Studio · week of 21 September 2026</p>
+      </div>
+      <a class="btn btn--primary" href="#new-entry">New time entry</a>
+    </div>
+
+    <section class="cards" aria-label="This week">
+      <article class="card">
+        <h2 class="stat__label">Hours this week</h2>
+        <p class="stat__value">126.5</p>
+      </article>
+      <article class="card">
+        <h2 class="stat__label">Billable</h2>
+        <p class="stat__value">82%</p>
+      </article>
+      <article class="card">
+        <h2 class="stat__label">Active projects</h2>
+        <p class="stat__value">7</p>
+      </article>
+    </section>
+
+    <section class="card" aria-labelledby="recent-heading">
+      <h2 id="recent-heading">Recent entries</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th scope="col">Member</th><th scope="col">Project</th><th scope="col">Date</th><th scope="col" class="num">Hours</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Ada Park</td><td>Harbor app redesign</td><td><time datetime="2026-09-23">23 Sep 2026</time></td><td class="num">6.0</td></tr>
+            <tr><td>Luis Ortega</td><td>Quarterly report</td><td><time datetime="2026-09-23">23 Sep 2026</time></td><td class="num">3.5</td></tr>
+            <tr><td>Mia Chen</td><td>Harbor app redesign</td><td><time datetime="2026-09-22">22 Sep 2026</time></td><td class="num">7.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/app.js"></script>
+</body>
+</html>

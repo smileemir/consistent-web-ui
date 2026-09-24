@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.6.0 - 2026-09-24
+
+### Layers, dialogs, dropdowns and toasts
+
+- **Only the top layer moves and responds.**
+  - While a dialog, drawer or full-screen menu is open, the page behind does not scroll and does not react to clicks, hover or Tab.
+  - Overlays and sticky bars are opaque, so text beneath never mixes with theirs.
+  - Clicks never pass through an overlay.
+- **Controls in a row share one height, radius and text size.** Buttons side by side differ only by variant, and a hover never adds an underline or border the others lack.
+- **Dropdowns match the fields.** A closed select looks like the other fields. The open list uses the theme's surface, border, radius and type, through `appearance: base-select` with the native list as the fallback, or through the project's own component.
+- **Dialogs fit their content:**
+  - three sizes, and media capped at about a third of the screen;
+  - only the body scrolls; the header and actions stay visible;
+  - a quiet 36 px close button;
+  - first focus on the title, the first field, or Cancel in destructive confirmations;
+  - backdrop clicks close content dialogs only.
+- **Toasts wear the brand:**
+  - one position, at most three at once, above dialogs;
+  - success and info leave after about 5 seconds and pause on hover or focus;
+  - errors stay until closed.
+- **New files:**
+  - `references/overlays-and-controls.md`;
+  - `assets/templates/controls.html`, `dialog.html` and `toast.html`, each checked in a real browser;
+  - `scripts/ui_check.js`, which measures rows of controls and open overlays on the rendered page;
+  - `--control-height` tokens, design contract items DC-37 and DC-38, and the matching audit checks.
+
+### Instructions and help (0.5.1, not released separately)
+
+- **Global AI instructions stay untouched.** The skill never creates or edits user-level or global instruction or memory files for any assistant, such as `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, editor rules or saved memory. Decisions live in project files:
+  - the design contract;
+  - at most a short pointer to it in the project's own instruction file, only if that file already exists or the owner agrees.
+- **Help comes in two forms, and both are rare.** The density rule now covers visible hints as well as (i):
+  - a visible hint is only for limits needed while typing and for serious, hard-to-undo consequences;
+  - nice-to-know detail goes behind an (i).
+
+  Found by the new eval, where every field got a hint.
+- **New eval 8 (outside ecommerce):** the Settings page of a team time-tracking app. It also checks that existing behaviour survives and that no global AI instruction file changes.
+
+### Checks
+
+- 48 tests pass on Python 3.8 to 3.14.
+
 ## 0.5.0 - 2026-09-24
 
 ### Fixes from the first evaluation round

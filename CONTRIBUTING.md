@@ -6,7 +6,7 @@ Propose changes that help a real user finish a real task, and keep everything or
 
 1. Run the tests: `python3 -m unittest discover -s tests`.
 2. Keep `consistent-web-ui/SKILL.md` short. Detail belongs in a reference file that SKILL.md links to directly, with a clear "read when" line, so normal use loads only what a task needs. Every line in SKILL.md costs tokens on every run.
-3. New scripts use the Python standard library only, are read-only unless their purpose is to write a file the user asked for, and come with tests that exercise them for real.
+3. New scripts use the Python standard library only, or plain browser JavaScript with no dependencies for checks that run inside a page. They are read-only unless their purpose is to write a file the user asked for, and they come with tests that exercise them for real.
 4. Keep the frontend boundary. A design contribution never changes server, database, payment or authorization behaviour.
 5. If you change guidance, add or update an evaluation in `evals/` that shows the change helps.
 

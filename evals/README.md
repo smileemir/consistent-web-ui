@@ -17,6 +17,7 @@ Results are kept in [results/](results/).
 | 5 tailwind-theme-plan | **Framework mapping:** Tailwind v4's own theme as the single source, conflicts found, plan only |
 | 6 premium-trust-card-motion | **Motion rules:** one-shot, keyboard without fake tab stops, reduced motion, no decorative loops on trust marks, shared parts named before they change, promises confirmed |
 | 7 admin-contextual-help | **Info (i) help:** only where needed, purpose-driven and short, facts from the project's own guide, nothing invented, one accessible component |
+| 8 saas-settings-page | **Outside ecommerce:** one page of a team time-tracking app brought in line with the app's own design system; dark mode, labels, switch, help, honest delete, motion and layers; no global AI instruction file touched |
 
 ## Fixtures
 
@@ -24,6 +25,7 @@ Results are kept in [results/](results/).
 - `fixtures/tailwind-shop`: Next.js + Tailwind v4 with hardcoded values and a conflicting leftover config.
 - `fixtures/empty-project`: an empty project for new-build tasks.
 - `fixtures/store-admin`: a clean store admin with a staff guide; one setting is deliberately left undocumented.
+- `fixtures/saas-app`: a team time-tracking app whose Settings page ignores the shared design system; includes product notes and a project `AGENTS.md`.
 
 ## Planned revisions
 

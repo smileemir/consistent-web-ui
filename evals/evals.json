@@ -134,6 +134,30 @@
         "One shared help component (the same markup pattern, class names and script) is used on both pages and styled with the existing CSS variables",
         "Existing controls keep their ids, names and behaviour, and nothing under server/ or docs/ was changed"
       ]
+    },
+    {
+      "id": 8,
+      "name": "saas-settings-page",
+      "fixture": "evals/fixtures/saas-app",
+      "prompt": "This is our team time-tracking app (the project folder). The Settings page looks like it came from a different app and breaks in dark mode. Please make it consistent with the rest of the app. Only the Settings page - the other pages are fine.",
+      "expected_output": "The Settings page rebuilt on the app's own components and tokens; dark mode works; real labels; a keyboard-operable switch; help only where the effect is not obvious, with facts from the product notes; an honest delete confirmation; balanced motion; toast on the layer scale; other pages, shared rules and the backend untouched; no global AI instruction file touched; verification stated.",
+      "files": [],
+      "expectations": [
+        "Other pages are untouched: dashboard.html, projects.html and server/ are unchanged, and existing shared CSS rules and app.js functions used by other pages are unchanged (new rules or functions used only by the Settings page are fine)",
+        "The Settings page uses the app's shared components and tokens (.btn, .card, .field, .switch, .toast and the CSS variables) instead of its own hardcoded colours, fonts and spacing; no raw colour literals remain in the settings styles",
+        "In the dark theme the Settings page follows the theme: no white panels or dark-on-dark text, and body text and control labels reach at least 4.5:1 contrast",
+        "Every field has a visible label (no placeholder used as the label), and saving still sends the same field names (workspaceName, timezone, dataRetentionDays, weeklyDigest, require2fa) to /api/settings",
+        "The Weekly digest control is a real keyboard-operable switch (for example a checkbox with role=switch) and still sends weeklyDigest as a boolean",
+        "Help (an info (i) or a visible hint) is never a title attribute or hover-only, and its text states what the setting does using facts from docs/product-notes.md",
+        "Help is not on every control: Save and Workspace name have no visible hint, and visible hints are kept for limits needed while typing or serious, hard-to-undo consequences (such as the 90-day minimum or the two-factor lockout); nice-to-know details sit behind an (i) or are left out",
+        "Deleting the workspace asks for confirmation in a dialog that names the action, states the real consequence from the product notes (the owner can cancel within 7 days, then it is permanent) and has a confirm button that repeats the verb; the vague 'Are you sure?' prompt is gone",
+        "Motion is balanced: the looping Upgrade pulse and the bouncing Save button are removed or replaced by one-shot feedback, controls get short hover, focus and press transitions, and reduced motion is respected",
+        "The copy-API-key button has an accessible name, and every interactive control on the page shows a visible focus style",
+        "Status messages appear above the sticky header, using the app's toast component or layer roles instead of an ad-hoc z-index",
+        "Existing behaviour survives: a retention value under 90 still cannot be saved, Copy, Regenerate and Delete call the same endpoints as before, and a failed request is never reported as a success",
+        "No user-level or global AI instruction or memory file was created or changed (see the harness check file); if the project's AGENTS.md was edited, the change is a short pointer to project design notes and the response mentions it",
+        "The response states how the page was verified in both themes at phone and desktop widths, backed by saved renders, or clearly says what could not be verified"
+      ]
     }
   ]
 }

@@ -22,6 +22,7 @@
 | Icons | {set, stroke/fill, mixed sets?} | | |
 | Imagery | {ratios, treatment, missing-image fallback} | | |
 | Motion | {durations in use, looping animations, reduced-motion guards; ten-second idle test; missing feedback on clicks} | | |
+| Controls and overlays | {heights and radii of controls that share a row; do dropdown lists, dialogs and toasts match the theme; does the page scroll or react under an open dialog; `ui_check.js` results} | | |
 | Help and UI text | {info (i): how many and where; help that defines the word or guesses; hover-only or `title` help; button, error and empty-state patterns} | | |
 | Themes and locales | {light/dark support, which parts break when switching} | | |
 
@@ -71,6 +72,7 @@ Reply with, for example: "Approve F01, F02 on /product and /cart. Defer F05."
 - Before screenshots: {viewports} + 200% zoom + dark theme → `{folder}`
 - Contrast: {n} pass / {n} fail - {failures}
 - Accessibility quick pass: keyboard path, visible focus, names/labels, reduced motion, reflow at 320 px
+- Overlay check: `scripts/ui_check.js` run with each dialog, menu, select list and toast open: {issues}
 - Performance (if field or lab data exists): LCP / INP / CLS
 - Cannot test yet: {list}
 

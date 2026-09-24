@@ -1,6 +1,6 @@
 # Design contract - {product}
 
-> Save this file in the project (for example `docs/design-contract.md`) so every future AI or human session builds on the same decisions. Change it only through an approved decision; record the date. Each decision has an ID that pages and reviews can cite.
+> Save this file in the project (for example `docs/design-contract.md`) so every future AI or human session builds on the same decisions. Keep it in the project: never copy it into an assistant's global instructions or memory. Change it only through an approved decision; record the date. Each decision has an ID that pages and reviews can cite.
 
 **Version** {n} · **Approved by** {owner} · **Date** {date} · **Theme source** `{path}`
 
@@ -41,8 +41,10 @@
 | DC-32 | List controls | filter / sort / view / columns live in one toolbar on lists that need them |
 | DC-33 | Optional notices | X closes; menu: Minimize (in-place `!` box), Remind me in a week, Never show again; stored {where} |
 | DC-34 | Same-page actions | save / filter / add to cart update without full reload where the existing data flow supports it |
-| DC-35 | Feedback | pending, success, error and empty patterns; where toasts appear |
+| DC-35 | Feedback | pending, success, error and empty patterns; toast position, look, maximum shown and timing |
 | DC-36 | Info (i) help | only where purpose or effect cannot be inferred and a wrong guess costs; text = purpose or effect in at most two sentences; at most one per card; component {project popover / `info-toggletip.html`} |
+| DC-37 | Controls | control heights {32 / 40 / 48 px}, one radius and text size per row; button variants and their states |
+| DC-38 | Overlays | page locked and inert under modals; opaque layers; dialog sizes {400 / 560 / 720 px}; close button {36-40 px}; backdrop-click rule |
 
 ## Components and variants
 

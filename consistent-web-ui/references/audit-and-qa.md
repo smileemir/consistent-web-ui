@@ -31,7 +31,7 @@ Write the product/brand and data contract → route map with conditional branche
 | Accessibility | Applicable WCAG 2.2 AA review plus keyboard, screen reader, focus, names, 320 CSS px reflow, contrast and reduced motion | Focus hidden behind sticky bar, dialog focus lost, status only in color |
 | Content and media | Alt/decorative roles, source rights, missing media, video poster/captions, long translations | Different product used as missing-photo fallback |
 | States and data | Offline, loading, stale, empty, partial, permission denied, repeat actions | Payment pending presented as success, no-data shown as zero |
-| Layers | Open every overlay together with the others that can appear at the same time | A cookie banner that hides the purchase bar on phones |
+| Layers | Open every overlay together with the others that can appear at the same time, then run `scripts/ui_check.js` | A cookie banner that hides the purchase bar on phones; the page scrolls or reacts under an open dialog |
 | Help and UI text | Check each info (i) against [help-and-ui-text.md](help-and-ui-text.md); read buttons, errors and empty states in the longest locale | An (i) on every card, or help that defines the word instead of saying what the item does |
 | Motion | Ten-second idle test and the feedback floor from [motion-core.md](motion-core.md); initial/final states, interruption, low-power phone, tall cards, reduced motion | Card content inaccessible until unreachable visibility threshold; a click with no visible response |
 | Performance | Measure with real representative route and network/device; where field data exists, inspect p75 LCP, INP and CLS | An optional effect dominates input latency or shifts purchase controls |

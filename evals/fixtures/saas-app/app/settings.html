@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings · Tidewell</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .settings-wrap { max-width: 760px; margin: 22px auto; padding: 13px 27px; background: #fff; color: #333; border-radius: 3px; box-shadow: 0 0 20px rgba(0,0,0,.25); }
+    .settings-wrap h1 { font-family: Georgia, serif; font-size: 34px; color: #111; margin: 10px 0 18px; }
+    .settings-wrap h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin: 31px 0 9px; }
+    .settings-wrap input, .settings-wrap select { display: block; width: 100%; padding: 11px 9px; margin: 6px 0 15px; border: 1px solid #ccc; border-radius: 0; font-size: 15px; background: #fafafa; color: #333; }
+    .tip { color: #aaa; cursor: help; font-size: 13px; margin-left: 4px; }
+    .toggle { display: inline-block; width: 46px; height: 22px; border-radius: 11px; background: #ccc; position: relative; cursor: pointer; vertical-align: middle; margin-left: 10px; }
+    .toggle::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left .3s; }
+    .toggle.on { background: #27ae60; }
+    .toggle.on::after { left: 26px; }
+    .save-btn { background: linear-gradient(135deg, #ff6a00, #ee0979); color: #fff; border: 0; border-radius: 30px; padding: 14px 38px; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .save-btn:hover { animation: bounce .6s; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } 60% { transform: translateY(3px); } }
+    .upgrade-badge { display: inline-block; margin-left: 12px; padding: 3px 10px; border-radius: 12px; background: #f5b400; color: #fff; font-size: 12px; font-family: Arial, sans-serif; vertical-align: middle; animation: pulse 1.4s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(245,180,0,.7); } 70% { box-shadow: 0 0 0 12px rgba(245,180,0,0); } 100% { box-shadow: 0 0 0 0 rgba(245,180,0,0); } }
+    .key-row { display: flex; gap: 6px; align-items: center; }
+    .key-row input { margin: 0; font-family: monospace; }
+    .copy { border: 1px solid #ccc; background: #eee; padding: 10px 12px; cursor: pointer; }
+    .regen { background: none; border: 0; color: #2b59c3; text-decoration: underline; cursor: pointer; padding: 0; margin: 8px 0 0; }
+    .danger { margin-top: 37px; padding-top: 14px; border-top: 2px dashed #e74c3c; }
+    .delete-btn { background: #e74c3c; color: #fff; border: 0; padding: 9px 16px; border-radius: 4px; cursor: pointer; }
+    .settings-toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 5; background: #27ae60; color: #fff; padding: 10px 18px; border-radius: 20px; display: none; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <p class="app-header__brand">Tidewell</p>
+    <nav class="app-nav" aria-label="Main">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="settings.html" aria-current="page">Settings</a>
+    </nav>
+    <button type="button" class="btn" id="theme-toggle" aria-pressed="false">Dark theme</button>
+  </header>
+
+  <div class="settings-wrap">
+    <h1>Workspace Settings <span class="upgrade-badge">Upgrade to Pro</span></h1>
+
+    <form id="settings-form">
+      <h3>General</h3>
+      <span class="tip" title="Workspace name: the name of the workspace">ⓘ</span>
+      <input id="workspace-name" name="workspaceName" type="text" placeholder="Workspace name" value="Northwind Studio">
+
+      <span class="tip" title="Time zone: the time zone of the workspace">ⓘ</span>
+      <select id="timezone" name="timezone" aria-label="Time zone">
+        <option value="Europe/Berlin" selected>Europe/Berlin</option>
+        <option value="Europe/London">Europe/London</option>
+        <option value="America/New_York">America/New_York</option>
+      </select>
+
+      <h3>Data</h3>
+      <span class="tip" title="Data retention: how long data is retained">ⓘ</span>
+      <input id="retention" name="dataRetentionDays" type="number" placeholder="Data retention (days)" value="365" min="90">
+
+      <h3>Notifications &amp; security</h3>
+      <div>
+        Weekly digest <span class="tip" title="Weekly digest: a weekly digest">ⓘ</span>
+        <div class="toggle on" id="digest-toggle" onclick="toggleDigest(this)"></div>
+        <input type="hidden" id="weekly-digest" name="weeklyDigest" value="true">
+      </div>
+      <p>
+        <label><input type="checkbox" id="require-2fa" name="require2fa" style="display:inline;width:auto;margin:0 6px 0 0"> Require two-factor authentication</label>
+        <span class="tip" title="2FA: two-factor authentication">ⓘ</span>
+      </p>
+
+      <h3>API</h3>
+      <span class="tip" title="API key: the key for the API">ⓘ</span>
+      <div class="key-row">
+        <input id="api-key" type="text" value="tw_live_4f9a1c77e2b04d3a" readonly>
+        <button type="button" class="copy" onclick="copyKey()">⧉</button>
+      </div>
+      <button type="button" class="regen" onclick="regenerateKey()">Regenerate key</button>
+
+      <p><button type="submit" class="save-btn">SAVE</button> <span class="tip" title="Save: saves the settings">ⓘ</span></p>
+    </form>
+
+    <div class="danger">
+      <h3>Danger zone</h3>
+      <button type="button" class="delete-btn" onclick="if (confirm('Are you sure?')) deleteWorkspace()">Delete workspace</button>
+    </div>
+  </div>
+
+  <div class="settings-toast" id="settings-toast">Saved!</div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/app.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 # Help and UI text
 
-Read when you add info (i) help, write labels, buttons, errors, empty states or confirmations, or build a form.
+Read when you add help (an info (i) or a visible hint), write labels, buttons, errors, empty states or confirmations, or build a form.
 
 ## Contents
 
-1. Info (i) help: when to add one, and when not to
+1. Help: when to add it, in which form, and when not to
 2. What the help says
 3. Help by element type
 4. The help component
@@ -13,17 +13,26 @@ Read when you add info (i) help, write labels, buttons, errors, empty states or 
 7. Numbers, dates and units
 8. Review checklist
 
-## 1. Info (i) help: when to add one
+## 1. Help: when to add it
 
-An (i) tells the user "this one is worth explaining". If every card has one, users stop opening them, the page looks unsure of itself, and the few that matter get lost. Help is rare on purpose.
+Help comes in two forms: an info (i) that opens on demand, and a visible hint under a field. Either one tells the user "this one is worth explaining". If every card or field carries help, users stop reading it, the page looks unsure of itself, and the few that matter get lost. Help is rare on purpose, in both forms.
 
-**Add an (i) only when all three are true:**
+**Add help only when all three are true:**
 
 1. The page's intended user could not work out the item's purpose or effect from its label, its value and what surrounds it.
 2. A wrong guess costs something: money, data, a change customers will see, time, or a failed task.
-3. A clearer label or a short visible line cannot solve it. Fix the label first. Use visible helper text for anything needed while filling in a field.
+3. A clearer label cannot solve it. Fix the label first.
 
-**Never add an (i):**
+**Pick the form:**
+
+| What the user needs to know | Form |
+| --- | --- |
+| A limit or format needed while typing ("Minimum 90 days", "8+ characters") | visible hint under the field |
+| A serious or hard-to-undo consequence: people locked out, data archived or deleted, integrations broken, money charged | visible hint; when an action triggers it, a confirmation that states the consequence |
+| Nice-to-know detail: where a name appears, when an email is sent, how a figure is counted | info (i) |
+| Nothing the label does not already say | no help |
+
+**Never add help:**
 
 - to self-explanatory items: name, email, price, quantity, search, save, cancel;
 - to decorative or marketing cards, or to every card "for consistency";
@@ -32,7 +41,7 @@ An (i) tells the user "this one is worth explaining". If every card has one, use
 - to explain a confusing design. Fix the design;
 - inside another interactive element (a link card, a button, a `<label>`). Nested controls break keyboard, touch and screen readers.
 
-**Density.** If more than about a third of the items in a group seem to need help, the labels or the grouping are wrong. Rewrite the labels, or add one short intro line under the group heading. A card gets at most one (i), and most cards get none.
+**Density.** It covers hints and (i)s together. If more than about a third of the items in a group seem to need help, check each item against the table above, rewrite the labels, or add one short intro line under the group heading instead. A card gets at most one (i), and most cards and fields get no help at all.
 
 ## 2. What the help says
 
@@ -150,7 +159,8 @@ Critical information never lives only in either of them.
 
 ## 8. Review checklist
 
-- (i) on self-explanatory items, on every card, more than one per card, or on more than about a third of a group's items
+- Help (a hint or an (i)) on self-explanatory items, on every card or field, more than one per card, or on more than about a third of a group's items
+- A visible hint that carries nice-to-know detail instead of a limit or a serious consequence
 - Help that restates the label or defines the word, is longer than two sentences, or states behaviour nobody confirmed
 - Help that opens only on hover, lives in `title`, cannot be reached by keyboard or touch, or sits inside a label, link or button
 - Essential information (price, fees, errors, legal terms) available only inside help

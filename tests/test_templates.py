@@ -103,6 +103,55 @@ class Templates(unittest.TestCase):
         self.assertEqual(walker.titles, 0, "help never lives in a title attribute")
         self.assertIn("beforetoggle", html)
 
+    def read_template(self, name):
+        with open(os.path.join(SKILL, "assets", "templates", name), encoding="utf-8") as handle:
+            return handle.read()
+
+    def test_dialog_template_locks_the_page_and_sizes_to_content(self):
+        import re
+        html = self.read_template("dialog.html")
+        for needle in ("html.is-scroll-locked { overflow: hidden; }", "overscroll-behavior: contain",
+                       "showModal()", "returnFocusTo", "data-dialog-persistent", "prefers-reduced-motion"):
+            self.assertIn(needle, html)
+        self.assertRegex(html, r"\.dialog__media \{[^}]*max-block-size: \d+vh")
+        body = html.split("<body>", 1)[1]
+        for dialog in re.findall(r"<dialog[^>]*>", body):
+            labelled = re.search(r'aria-labelledby="([^"]+)"', dialog)
+            self.assertIsNotNone(labelled, dialog)
+            self.assertRegex(body, r'id="%s" tabindex="-1"' % re.escape(labelled.group(1)))
+        for close in re.findall(r'<button[^>]*class="dialog__close"[^>]*>', body):
+            self.assertIn('aria-label="', close)
+        self.assertRegex(html, r"\.dialog__close \{[^}]*inline-size: 36px")
+
+    def test_toast_template_follows_the_notification_rules(self):
+        html = self.read_template("toast.html")
+        for needle in ('"alert" : "status"', "MAX_VISIBLE = 3", "error: 0", "pointer-events: none",
+                       ":modal", "pointerenter", "focusin", "prefers-reduced-motion", "var(--layer-toast"):
+            self.assertIn(needle, html)
+
+    def test_controls_share_one_height(self):
+        css = self.read_template("controls.html").split("/* ===== Form controls and buttons: copy from here ===== */", 1)[1]
+        css = css.split("/* ===== Form controls and buttons: copy until here ===== */", 1)[0]
+        for selector in (".control {", ".segmented {", ".btn {"):
+            block = css.split(selector, 1)[1].split("}", 1)[0]
+            self.assertIn("var(--control-height", block, selector)
+        self.assertIn("@supports (appearance: base-select)", css)
+        self.assertIn("--control-height: 40px;", self.read_template("theme-tokens.css"))
+
+    def test_ui_check_script_is_valid(self):
+        import shutil
+        import subprocess
+        path = os.path.join(SKILL, "scripts", "ui_check.js")
+        with open(path, encoding="utf-8") as handle:
+            source = handle.read()
+        self.assertIn("window.uiCheck = function uiCheck()", source)
+        for check in ("controls-height", "modal-scroll-lock", "modal-click-through", "overlay-opaque",
+                      "modal-actions", "close-size", "sticky-opaque"):
+            self.assertIn(check, source)
+        node = shutil.which("node")
+        if node:
+            subprocess.run([node, "--check", path], check=True)
+
     def test_design_contract_ids_are_unique(self):
         import re
         with open(os.path.join(SKILL, "assets", "templates", "design-contract.md"), encoding="utf-8") as handle:

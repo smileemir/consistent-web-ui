@@ -25,7 +25,8 @@ It works in any assistant that supports the open Agent Skills format, and with a
 - **Audits existing sites before touching them.** It inventories every route template, theme source, token gap and inconsistency, then writes **one** Markdown report. You pick what to change, and it changes one approved page at a time.
 - **Stays in its lane.** Frontend only. Backend, database, API, payment and permission changes need your separate approval. Existing buttons keep doing exactly what they did.
 - **Builds new sites on one theme source.** It fills in a design contract with you and starts from a semantic token file with light/dark themes, a layer (z-index) scale and motion roles, or from your framework's own theme (Tailwind, shadcn/ui, Bootstrap, MUI, Shopify, WordPress and more).
-- **Keeps the same job looking the same.** Buttons, inputs, dropdowns, cards, rows, dialogs, notices, icons, list toolbars (filter, sort, view, columns) and optional information cards share one grammar across pages.
+- **Keeps the same job looking the same.** Buttons, inputs, dropdowns, cards, rows, dialogs, notices, icons, list toolbars (filter, sort, view, columns) and optional information cards share one grammar across pages. Controls in a row share one height, and dropdown lists, dialogs and toasts wear the brand, not the browser's defaults.
+- **Gets layers right.** Only the top layer scrolls and responds. The page behind an open dialog stays still, clicks never pass through an overlay, and nothing see-through lets text mix.
 - **Refuses to invent.** Prices, stock, delivery promises, reviews, metrics and urgency come from real data, or the section is not shown.
 - **Explains only what needs explaining.** An info (i) appears only where an item's purpose or effect cannot be guessed. It says what the item does in one or two sentences, and never sits on every card. Labels, errors, empty states and confirmations follow one writing pattern.
 - **Checks its own work.** It renders changed pages at phone, tablet and desktop widths, at 200% zoom, in every theme and the longest language, then walks the keyboard path and checks reduced motion and contrast. Anything it could not render is reported as unverified, never as passed.
@@ -41,7 +42,7 @@ It works in any assistant that supports the open Agent Skills format, and with a
 
 *Info (i) help added to a store admin. It appears only on items new staff could not work out, and the text comes from the project's own staff guide. Both examples come from the evaluation tasks, which use fictional projects ([evals/](evals/)).*
 
-The first sector is **ecommerce**. It covers:
+The method works for any website or web app; it was also tested on the settings page of a SaaS app. Sector packs add detailed page and component guidance on top. The first sector pack is **ecommerce**. It covers:
 
 - 20 customer routes and 12 admin screens;
 - 22 card roles;
@@ -101,17 +102,20 @@ python3 consistent-web-ui/scripts/frontend_index.py --root path/to/frontend
 python3 consistent-web-ui/scripts/contrast_check.py --css app/globals.css --pairs auto --only-failures
 ```
 
+`scripts/ui_check.js` runs inside a rendered page (paste it into the browser console, or load it with Playwright) and measures rows of controls and open overlays.
+
 ## What's inside
 
 ```text
 consistent-web-ui/
   SKILL.md                      the method: lanes, rules, verification
   LICENSE.txt                   MIT license (travels with the folder)
-  scripts/                      frontend_index.py, contrast_check.py
+  scripts/                      frontend_index.py, contrast_check.py, ui_check.js (runs in the page)
   assets/templates/             audit report, design contract, theme tokens, contrast pairs,
-                                page spec, motion record, asset register, info (i) component
+                                page spec, motion record, asset register, info (i) component,
+                                form controls, dialog, toast
   references/                   design contract, framework mapping, audit and QA,
-                                help and UI text, motion core, ecommerce pages,
+                                help and UI text, overlays and controls, motion core, ecommerce pages,
                                 components, assets, responsive rules, transaction
                                 traces, motion records, five direction blueprints,
                                 sector program
@@ -123,9 +127,9 @@ tests/                          tests for the scripts, templates and package
 
 - **Checked:**
   - The skill passes the official Agent Skills validation.
-  - 44 automated tests pass (scripts, templates and packaging) on Python 3.8 to 3.14.
+  - 48 automated tests pass (scripts, templates and packaging) on Python 3.8 to 3.14.
   - The scripts were run against real open-source storefront, theme and component-library code.
-  - Seven realistic evaluation tasks run on fictional projects ([evals/](evals/)). In the latest round, v0.5 passed 49 of 50 checks and v0.4 passed 42, on the five tasks that were re-run. Each task ran once, so a one-check difference is noise ([results](evals/results/)).
+  - Eight realistic evaluation tasks run on fictional projects: seven stores and one SaaS app ([evals/](evals/)). In the comparison round, v0.5 passed 49 of 50 checks and v0.4 passed 42, on the five tasks that were re-run. Each task ran once, so a one-check difference is noise ([results](evals/results/)).
 - **Written guidance, not measurements:**
   - The ecommerce guidance is original design work.
   - Motion durations are starting hypotheses to test on real devices, not timings measured from other sites.
