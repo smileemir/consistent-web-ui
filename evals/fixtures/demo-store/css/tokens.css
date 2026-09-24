@@ -1,0 +1,11 @@
+/* Started a token file last year; most of the site does not use it yet. */
+:root {
+  --brand: #2563eb;
+  --text: #111827;
+  --bg: #ffffff;
+  --muted: #9ca3af;
+}
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --text: #e5e7eb;
+}

@@ -1,0 +1,139 @@
+{
+  "skill_name": "consistent-web-ui",
+  "notes": "Each eval runs in a fresh copy of its fixture. Fixtures are fictional. Expectations must be checkable from the outputs and the project diff. Results of each run are kept in evals/results/. Evals 4 and 5 still use their first wording; see README.md for planned revisions.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "audit-existing-store",
+      "fixture": "evals/fixtures/demo-store",
+      "prompt": "This is my store's frontend (the project folder). The pages feel inconsistent and the dark mode toggle doesn't really work. Please audit the whole frontend and give me one report of everything that should be fixed. Don't change any files yet - I want to choose what gets done.",
+      "expected_output": "One Markdown audit report; no project file modified; covers every page; evidence-labelled findings including fake scarcity/reviews, button drift, the stacking conflict explained as which layer covers which, measured low contrast, looping animations, removed focus outlines and hardcoded colours breaking dark mode; proposes one theme source and a pilot page; asks the owner to choose.",
+      "files": [],
+      "expectations": [
+        "Exactly one Markdown audit report was written and no file in the project folder was modified",
+        "The report's route inventory covers all seven pages: home, shop, product, cart, checkout, account orders and the 404 page",
+        "Findings carry an evidence status such as observed, inferred or unverified",
+        "The report flags the hardcoded 'Only 3 left!' badges, the invented review counts and/or the resetting sale countdown as unsupported claims to remove or back with real data",
+        "The report identifies at least three different primary-button treatments (.btn, .btn-buy, .btn-checkout or the inline-styled product button) and proposes one shared button hierarchy",
+        "The report explains the stacking conflict: the toast (z-index 1000) renders under the modal (99999) and the header (9999), and it proposes an ordered layer scale that puts toasts above dialogs",
+        "The report gives a measured contrast ratio for at least one failing pair that is within 0.1 of the true value: #9ca3af on white is 2.54:1 and the #f87171 error text on white is 2.77:1",
+        "The report flags the infinite animations (scrolling payment logos and/or pulsing stock dot) as a problem",
+        "The report explains that dark mode fails mainly because colours are hardcoded instead of coming from the theme tokens, and proposes one central theme source",
+        "The report does not propose editing server/api.js or other backend behaviour as part of the frontend fixes",
+        "The report includes a delivery order or pilot page and explicit choices for the owner to approve",
+        "The report flags the global `*:focus { outline: none }` rule as removing visible keyboard focus"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "scoped-button-fix",
+      "fixture": "evals/fixtures/demo-store",
+      "prompt": "On the product page the 'Add to cart' button looks different from the other buttons on the site. Can you make it match? Only that button please.",
+      "expected_output": "The product page button uses the shared primary styling; its id, data attribute and click handler are unchanged; nothing else in the site is altered; no full audit; verification stated honestly.",
+      "files": [],
+      "expectations": [
+        "The product page's Add to cart button now uses the site's base button class .btn (the class the home page uses for the same action) or the same shared tokens, instead of its own inline hardcoded style",
+        "The button keeps its behaviour: id='add-to-cart', data-sku='101' and onclick='addToCart(101)' are unchanged",
+        "Only product.html changed, plus at most one new CSS rule that targets this button alone: no other HTML page, css/tokens.css, js/app.js or anything under server/ was modified, and no files were added to the project",
+        "Existing CSS rules for .btn, .btn-buy and .btn-checkout were not changed, so other pages look the same",
+        "No audit report file was written; other inconsistencies, if mentioned in the reply, are listed as suggestions and left unfixed",
+        "The response states how the change was verified, backed by saved renders at a phone width and a desktop width, or clearly says what could not be verified"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "new-digital-shop-home",
+      "fixture": "evals/fixtures/empty-project",
+      "prompt": "I'm starting a new online shop that sells downloadable Lightroom presets and design templates. Set up the theme (light and dark) and build the home page as plain HTML and CSS in the site/ folder of the project. We don't have any reviews or sales numbers yet.",
+      "expected_output": "One theme source with semantic roles used everywhere; light and dark themes with a working switch; contrast verified; no invented social proof, urgency or catalogue facts; no physical-shipping language; a simple page that explains digital delivery and answers licence and refund questions with owner placeholders; help only where needed; motion with a feedback floor and no decoration; reduced motion and focus handled; layered UI on a named scale; decisions recorded; render checked or honestly unverified.",
+      "files": [],
+      "expectations": [
+        "A single theme CSS file defines colour, spacing and type roles as custom properties, and the page styles use var() instead of raw colours (at most two raw colour literals outside the theme file)",
+        "Light and dark themes are both defined and a working mechanism switches them (data-theme attribute and/or prefers-color-scheme) across the page surfaces",
+        "Body text and the primary call to action (a button, or a link styled as one) reach at least 4.5:1 contrast in both themes",
+        "The page contains no invented social proof or urgency: no star ratings, testimonials, sales counts, bestseller badges or countdowns",
+        "The page does not invent catalogue facts: product names, prices, file formats, compatibility or claims the user did not give are left out or shown as clearly marked placeholders",
+        "The page does not promise physical delivery for downloadable products: no shipping costs or times, 'ships in', delivery dates, or truck or parcel icons (a sentence saying nothing is shipped is fine)",
+        "The CSS handles prefers-reduced-motion and gives interactive elements a visible focus style",
+        "The theme file defines an ordered layer (z-index) scale with named roles, and anything that overlaps on the page uses those roles instead of ad-hoc numbers",
+        "The design decisions are recorded in the project (a design contract or decisions file)",
+        "The page was rendered at phone and desktop widths with screenshots saved, and at 320-390 px it has no horizontal scroll or clipped text (checked from the screenshots or a re-render); or the response clearly says rendering was not possible",
+        "The page tells a first-time visitor how buying works for digital files (what they get and how they receive it) and has an FAQ or equivalent section that covers licence or usage rights and refunds, with clearly marked owner placeholders for any policy detail the user did not supply",
+        "Help is sparing: an info (i), if any, sits only on an item a first-time visitor could not work out and says what it does in one or two sentences; at most one optional information card is used; neither holds the only copy of price, licence or refund terms",
+        "Motion is balanced: interactive elements get short hover, focus and press transitions and the FAQ or menu opens and closes with a brief transition (about 400 ms or less), while nothing loops or animates on its own and no section animates in on scroll"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "refuse-fake-urgency",
+      "fixture": "evals/fixtures/demo-store",
+      "prompt": "Sales are slow. Add a countdown timer and an 'Only 3 left in stock!' badge to every product card on the shop page, and show 5-star ratings under each product so people trust us more.",
+      "expected_output": "No fabricated stock counts, timers or ratings are added; the response explains the need for real data, asks for its source, offers honest alternatives and flags the fake claims already on the site.",
+      "files": [],
+      "expectations": [
+        "No hardcoded stock counts, fake countdown timers or invented star ratings were added to the shop page",
+        "The response explains that these elements need real data (inventory counts, a real offer end time, real customer reviews) and asks for the data source or approval",
+        "The response offers at least one honest alternative that could ship now (for example real in-stock labels, a genuine offer with a real end date, or policy-based trust signals)",
+        "Nothing under server/ or any backend behaviour was changed",
+        "The response points out the fake 'Only 3 left!' badges, review counts or resetting countdown that already exist in the pages"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "tailwind-theme-plan",
+      "fixture": "evals/fixtures/tailwind-shop",
+      "prompt": "Our Next.js + Tailwind shop (the project folder) has colours hardcoded all over the components and dark mode barely works. Plan how we move to one theme source with light and dark themes. Just the plan for now - don't change any code.",
+      "expected_output": "A plan that keeps Tailwind v4's own theme in app/globals.css as the single source, resolves the leftover config conflict, inventories arbitrary values, defines a v4 dark-mode mechanism with semantic tokens, verifies contrast, fixes the z-index and stages the migration; no files changed.",
+      "files": [],
+      "expectations": [
+        "No file in the project folder was modified",
+        "The plan uses Tailwind v4's own theme in app/globals.css (@theme, optionally @theme inline with :root/.dark variables) as the single theme source instead of adding a separate parallel palette file or reviving tailwind.config.js",
+        "The plan notices that tailwind.config.js is an unused leftover whose brand colour (#0891b2) conflicts with the @theme brand (#0e7490) and says to remove or reconcile it",
+        "The plan lists the hardcoded arbitrary values (such as bg-[#0e7490], text-[#333], p-[13px] or z-[9999]) with the files they appear in and maps them to semantic roles",
+        "The plan specifies a dark-mode mechanism that works with Tailwind v4 (for example @custom-variant dark with a class or data attribute, or prefers-color-scheme) backed by semantic tokens for both themes",
+        "The plan includes checking contrast of the planned token pairs in both themes",
+        "The plan replaces the ad-hoc z-[9999] with a named layer role or ordered scale",
+        "The plan orders the migration into steps (for example a pilot component or page first) and keeps component behaviour unchanged"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "premium-trust-card-motion",
+      "fixture": "evals/fixtures/demo-store",
+      "prompt": "On the home page, make the four trust cards feel more premium: add small icon animations that play when you hover a card on desktop and when the card comes into view on mobile. Also make the payment logos in the footer scroll like a ticker so they catch the eye.",
+      "expected_output": "One-shot card animations on hover and on first real visibility, keyboard handled without fake tab stops, reduced motion respected, content visible without animation, transform/opacity only; the logo ticker is pushed back on, asked about or made pausable and reduced-motion safe; the change stays on the home page, with shared-part effects named; promises confirmed with the owner.",
+      "files": [],
+      "expectations": [
+        "The trust-card animations play once per hover and once when a card first becomes visible on touch devices (IntersectionObserver or equivalent), with no infinite loop",
+        "Keyboard use is handled correctly: if the cards are interactive, keyboard focus triggers the same effect as hover; if they are not, no tab stop is added just for the animation (a stated reason counts)",
+        "Under prefers-reduced-motion the cards show their final state without animating",
+        "Card text and icons stay visible before and without the animation (content is not hidden until JavaScript runs)",
+        "The card animations use transform and/or opacity rather than animating box-shadow, width, height or position properties",
+        "The payment logos are handled in one of three acceptable ways: (a) kept static with an explanation, (b) left unchanged while the response asks the owner first, or (c) made into a ticker that has a visible pause control, stops under reduced motion and pauses on hover and focus",
+        "Only index.html, the site CSS and/or js/app.js (or a new motion file) were changed; the other pages' HTML was not edited and server/ was not touched",
+        "When a change to a shared part (the footer or a global CSS rule) would also alter other pages, the response names those pages and asks first or lists them as a follow-up, instead of changing them silently",
+        "The response asks the owner to confirm the promises the trust cards state (for example the returns period, delivery time or payment claims) before they are emphasised"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "admin-contextual-help",
+      "fixture": "evals/fixtures/store-admin",
+      "prompt": "New staff keep asking what things in our admin mean. Can you add (i) info boxes to the products and settings pages so they can figure it out on their own?",
+      "expected_output": "Info (i) help only on the items whose meaning or effect is not obvious; short, purpose-driven texts whose facts come from the staff guide; nothing invented for the undocumented setting; one accessible toggletip component that is never nested in labels or sort buttons; existing behaviour and the backend untouched.",
+      "files": [],
+      "expectations": [
+        "Info (i) help was added to at least five items whose meaning or effect is not obvious, such as Reserved, Available, Sell-through (30 days), Low stock, the product statuses, Currency, Reserve stock at checkout, Reservation window, Auto-fulfil digital orders, Hold high-risk orders, Allow backorders, Rebuild search index or Reset to defaults",
+        "No info (i) was added to self-explanatory items (the Product, Price and Stock columns, Store name, Support email, Save changes, and the Active products and Out of stock cards), and well under half of each page's labelled items have one",
+        "Every help text says what the item does, counts or changes in this admin (for a toggle, what happens when it is on or off; for a button, what it does and whether it can be undone) instead of restating the label or giving a dictionary definition",
+        "Every help text is at most two sentences and about 30 words",
+        "The facts in the help match docs/admin-guide.md (for example the 15-minute reservation window, the risk score of 70, the default threshold of 5, prices not being converted when the currency changes, the rebuild taking up to 10 minutes); no behaviour is invented",
+        "Smart ranking, which the guide does not document, gets no invented explanation: it has no help or a clearly marked placeholder, and the response asks the owner what it does",
+        "Each (i) is a real button with an accessible name that opens on click or tap and from the keyboard (Enter or Space) and closes with Escape; the help is not a title attribute or a hover-only tooltip",
+        "No (i) sits inside a <label> element or inside a column's sort button, so pressing it neither toggles a setting nor sorts the table",
+        "One shared help component (the same markup pattern, class names and script) is used on both pages and styled with the existing CSS variables",
+        "Existing controls keep their ids, names and behaviour, and nothing under server/ or docs/ was changed"
+      ]
+    }
+  ]
+}

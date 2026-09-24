@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products · Kestrel Supply admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="shell">
+    <nav class="sidebar" aria-label="Admin">
+      <p class="sidebar__brand">Kestrel Supply</p>
+      <ul>
+        <li><a href="products.html" aria-current="page">Products</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+
+    <main id="main" class="main">
+      <header class="page-head">
+        <h1>Products</h1>
+        <a class="btn btn--primary" href="#new-product" id="new-product">New product</a>
+      </header>
+
+      <section class="stats" aria-label="Summary">
+        <article class="stat">
+          <h2 class="stat__label">Active products</h2>
+          <p class="stat__value">5</p>
+        </article>
+        <article class="stat">
+          <h2 class="stat__label">Low stock</h2>
+          <p class="stat__value">1</p>
+        </article>
+        <article class="stat">
+          <h2 class="stat__label">Out of stock</h2>
+          <p class="stat__value">1</p>
+        </article>
+        <article class="stat">
+          <h2 class="stat__label">Sell-through (30 days)</h2>
+          <p class="stat__value">38%</p>
+        </article>
+      </section>
+
+      <div class="toolbar">
+        <div class="field">
+          <label for="product-search">Search</label>
+          <input type="search" id="product-search" name="q" placeholder="Name or SKU">
+        </div>
+        <div class="field">
+          <label for="status-filter">Status</label>
+          <select id="status-filter" name="status">
+            <option value="">All except archived</option>
+            <option value="Active">Active</option>
+            <option value="Draft">Draft</option>
+            <option value="Paused">Paused</option>
+            <option value="Archived">Archived</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" id="products">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">SKU</th>
+              <th scope="col" class="num"><button type="button" class="sort" data-sort="price">Price</button></th>
+              <th scope="col" class="num"><button type="button" class="sort" data-sort="stock">Stock</button></th>
+              <th scope="col" class="num"><button type="button" class="sort" data-sort="reserved">Reserved</button></th>
+              <th scope="col" class="num"><button type="button" class="sort" data-sort="available">Available</button></th>
+              <th scope="col" class="num"><button type="button" class="sort" data-sort="sell">Sell-through (30 days)</button></th>
+              <th scope="col">Status</th>
+              <th scope="col"><span class="visually-hidden">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-status="Active" data-search="dovetail saw, 18 tpi ks-1042">
+              <td class="product-name">Dovetail saw, 18 tpi</td>
+              <td class="sku">KS-1042</td>
+              <td class="num" data-value="64">€64.00</td>
+              <td class="num" data-value="12">12</td>
+              <td class="num" data-value="2">2</td>
+              <td class="num" data-value="10">10</td>
+              <td class="num" data-value="41">41%</td>
+              <td><span class="badge badge--active">Active</span></td>
+              <td><a href="#edit-KS-1042">Edit</a></td>
+            </tr>
+            <tr data-status="Active" data-search="marking gauge ks-1107">
+              <td class="product-name">Marking gauge</td>
+              <td class="sku">KS-1107</td>
+              <td class="num" data-value="29.5">€29.50</td>
+              <td class="num" data-value="14">14</td>
+              <td class="num" data-value="1">1</td>
+              <td class="num" data-value="13">13</td>
+              <td class="num" data-value="18">18%</td>
+              <td><span class="badge badge--active">Active</span></td>
+              <td><a href="#edit-KS-1107">Edit</a></td>
+            </tr>
+            <tr data-status="Active" data-search="low-angle block plane ks-1210">
+              <td class="product-name">Low-angle block plane</td>
+              <td class="sku">KS-1210</td>
+              <td class="num" data-value="119">€119.00</td>
+              <td class="num" data-value="4">4</td>
+              <td class="num" data-value="1">1</td>
+              <td class="num" data-value="3">3 <span class="badge badge--low">Low</span></td>
+              <td class="num" data-value="55">55%</td>
+              <td><span class="badge badge--active">Active</span></td>
+              <td><a href="#edit-KS-1210">Edit</a></td>
+            </tr>
+            <tr data-status="Active" data-search="bench chisel set, 4 pieces ks-1318">
+              <td class="product-name">Bench chisel set, 4 pieces</td>
+              <td class="sku">KS-1318</td>
+              <td class="num" data-value="89">€89.00</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="72">72%</td>
+              <td><span class="badge badge--active">Active</span></td>
+              <td><a href="#edit-KS-1318">Edit</a></td>
+            </tr>
+            <tr data-status="Active" data-search="card scraper ks-1350">
+              <td class="product-name">Card scraper</td>
+              <td class="sku">KS-1350</td>
+              <td class="num" data-value="14">€14.00</td>
+              <td class="num" data-value="40">40</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="40">40</td>
+              <td class="num" data-value="9">9%</td>
+              <td><span class="badge badge--active">Active</span></td>
+              <td><a href="#edit-KS-1350">Edit</a></td>
+            </tr>
+            <tr data-status="Paused" data-search="walnut offcuts box ks-1400">
+              <td class="product-name">Walnut offcuts box</td>
+              <td class="sku">KS-1400</td>
+              <td class="num" data-value="24">€24.00</td>
+              <td class="num" data-value="9">9</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="9">9</td>
+              <td class="num" data-value="6">6%</td>
+              <td><span class="badge badge--paused">Paused</span></td>
+              <td><a href="#edit-KS-1400">Edit</a></td>
+            </tr>
+            <tr data-status="Draft" data-search="spokeshave ks-1502">
+              <td class="product-name">Spokeshave</td>
+              <td class="sku">KS-1502</td>
+              <td class="num" data-value="54">€54.00</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="-1">—</td>
+              <td><span class="badge badge--draft">Draft</span></td>
+              <td><a href="#edit-KS-1502">Edit</a></td>
+            </tr>
+            <tr data-status="Archived" data-search="oak mallet ks-0990">
+              <td class="product-name">Oak mallet</td>
+              <td class="sku">KS-0990</td>
+              <td class="num" data-value="32">€32.00</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0</td>
+              <td class="num" data-value="0">0%</td>
+              <td><span class="badge badge--archived">Archived</span></td>
+              <td><a href="#edit-KS-0990">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

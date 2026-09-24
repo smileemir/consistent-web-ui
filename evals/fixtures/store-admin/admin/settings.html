@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings · Kestrel Supply admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="shell">
+    <nav class="sidebar" aria-label="Admin">
+      <p class="sidebar__brand">Kestrel Supply</p>
+      <ul>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="settings.html" aria-current="page">Settings</a></li>
+      </ul>
+    </nav>
+
+    <main id="main" class="main">
+      <header class="page-head">
+        <h1>Settings</h1>
+        <p class="save-state" id="save-state" aria-live="polite">All changes saved</p>
+      </header>
+
+      <form id="settings-form" class="settings" novalidate>
+        <section class="panel" aria-labelledby="store-heading">
+          <h2 id="store-heading">Store</h2>
+          <div class="field">
+            <label for="store-name">Store name</label>
+            <input id="store-name" name="storeName" type="text" value="Kestrel Supply" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="support-email">Support email</label>
+            <input id="support-email" name="supportEmail" type="email" value="help@kestrel-supply.example" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="currency">Currency</label>
+            <select id="currency" name="currency">
+              <option value="EUR" selected>EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="checkout-heading">
+          <h2 id="checkout-heading">Checkout</h2>
+          <div class="switch-row">
+            <label for="guest-checkout">Guest checkout</label>
+            <input id="guest-checkout" name="guestCheckout" type="checkbox" role="switch" checked>
+          </div>
+          <div class="switch-row">
+            <label for="reserve-stock">Reserve stock at checkout</label>
+            <input id="reserve-stock" name="reserveStock" type="checkbox" role="switch" checked>
+          </div>
+          <div class="field">
+            <label for="reservation-window">Reservation window (minutes)</label>
+            <input id="reservation-window" name="reservationWindow" type="number" inputmode="numeric" min="5" max="60" value="15">
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="orders-heading">
+          <h2 id="orders-heading">Orders</h2>
+          <div class="switch-row">
+            <label for="auto-fulfil">Auto-fulfil digital orders</label>
+            <input id="auto-fulfil" name="autoFulfilDigital" type="checkbox" role="switch" checked>
+          </div>
+          <div class="switch-row">
+            <label for="hold-high-risk">Hold high-risk orders</label>
+            <input id="hold-high-risk" name="holdHighRisk" type="checkbox" role="switch" checked>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="inventory-heading">
+          <h2 id="inventory-heading">Inventory</h2>
+          <div class="field">
+            <label for="low-stock-threshold">Low-stock threshold</label>
+            <input id="low-stock-threshold" name="lowStockThreshold" type="number" inputmode="numeric" min="0" value="5">
+          </div>
+          <div class="switch-row">
+            <label for="allow-backorders">Allow backorders</label>
+            <input id="allow-backorders" name="allowBackorders" type="checkbox" role="switch">
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="search-heading">
+          <h2 id="search-heading">Search</h2>
+          <div class="switch-row">
+            <label for="smart-ranking">Smart ranking</label>
+            <input id="smart-ranking" name="smartRanking" type="checkbox" role="switch" checked>
+          </div>
+          <div class="action-row">
+            <button type="button" class="btn" id="rebuild-index">Rebuild search index</button>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary" id="save-settings">Save changes</button>
+          <button type="button" class="btn btn--danger-quiet" id="reset-defaults">Reset to defaults</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <form method="dialog">
+      <h2 id="reset-title">Reset settings to defaults?</h2>
+      <p>Store name, support email and currency are kept. This can't be undone.</p>
+      <div class="dialog-actions">
+        <button type="submit" class="btn" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--primary" value="reset">Reset settings</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>
