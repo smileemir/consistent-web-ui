@@ -1,0 +1,23 @@
+{
+  "name": "consistent-web-ui",
+  "description": "Consistent Web UI: an Agent Skill for consistent, professional, accessible web frontends.",
+  "owner": {
+    "name": "smileemir",
+    "url": "https://github.com/smileemir"
+  },
+  "plugins": [
+    {
+      "name": "consistent-web-ui",
+      "source": "./",
+      "description": "Make AI-built websites and web apps look like one consistent, professional product: one theme source, shared components, honest content, accessible layouts and balanced motion.",
+      "version": "0.5.0",
+      "author": {
+        "name": "smileemir"
+      },
+      "strict": false,
+      "skills": [
+        "./consistent-web-ui"
+      ]
+    }
+  ]
+}
